@@ -1,10 +1,10 @@
-// Pedido.java
 package br.com.devfast.model;
 
+import br.com.devfast.interfaces.Rastreavel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pedido {
+public class Pedido implements Rastreavel {
     private int id;
     private StatusPedido status;
     private Endereco enderecoEntrega;
@@ -35,8 +35,16 @@ public class Pedido {
 
     public void atualizarStatus(StatusPedido novoStatus) {
         this.status = novoStatus;
+        // Aciona automaticamente o contrato de rastreabilidade ao mudar o status
+        atualizarRastreamento();
     }
 
+    @Override
+    public void atualizarRastreamento() {
+        System.out.println("[LOG RASTREIO] Pedido #" + id + " atualizou seu rastreamento para o status: " + status);
+    }
+
+    // Getters
     public int getId() { return id; }
     public StatusPedido getStatus() { return status; }
     public Endereco getEnderecoEntrega() { return enderecoEntrega; }
